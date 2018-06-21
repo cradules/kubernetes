@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: brustable-pod
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+      resources:
+        limits:
+          cpu: 0.3
+          memory: 350Mi
+    - name: tomacat
+      image: tomacat
+      resources:
+        limits:
+          cpu: 0.2
+          memory: 100Mi
+          
