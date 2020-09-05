@@ -15,6 +15,10 @@
 SERVER=$(grep server "$HOME"/.kube/config | awk '{print $2}')
 CERT_PATH="$HOME/kube-cert"
 
+function usage() {
+     echo $"Usage: $0 {-get-endpoints|-gse|-create}"
+}
+
 if [[ ! -d $CERT_PATH ]]
   then
   #Read Cluster information from kube config
@@ -30,15 +34,26 @@ if [[ ! -d $CERT_PATH ]]
 fi
 
 
-if [[ -z $1 ]]
-  then
-  curl  --cert "$CERT_PATH/client.pem" \
-      --key "$CERT_PATH/client-key.pem" \
-      --cacert "$CERT_PATH/ca.pem" \
-        "$SERVER"
-  else
-      curl --cert "$CERT_PATH/client.pem" \
-      --key "$CERT_PATH/client-key.pem" \
-      --cacert "$CERT_PATH/ca.pem" \
-        "$SERVER""$1"
-fi
+case $1 in
+    -get-endpoints)
+            curl  --cert "$CERT_PATH/client.pem" \
+              --key "$CERT_PATH/client-key.pem" \
+              --cacert "$CERT_PATH/ca.pem" \
+              "$SERVER"
+        ;;
+    -gse)
+            curl --cert "$CERT_PATH/client.pem" \
+              --key "$CERT_PATH/client-key.pem" \
+              --cacert "$CERT_PATH/ca.pem" \
+              "$SERVER""$2"
+        ;;
+    -create)
+            curl --cert "$CERT_PATH/client.pem" \
+              --key "$CERT_PATH/client-key.pem" \
+              --cacert "$CERT_PATH/ca.pem" \
+              "$SERVER""$2" -XPOST -H'Content-Type: application/json'\-d@"$3"
+        ;;
+      *)
+        usage
+        ;;
+esac
