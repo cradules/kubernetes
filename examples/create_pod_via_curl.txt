@@ -1,0 +1,1 @@
+scripts/kubernets-curl.sh -create /api/v1/namespaces/default/pods examples/curlpod.json
