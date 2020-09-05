@@ -21,6 +21,7 @@ if [[ ! -d $CERT_PATH ]]
   CLIENT=$(grep client-cert "$HOME"/.kube/config |cut -d" " -f 6)
   KEY=$(grep client-key-data "$HOME"/.kube/config |cut -d " " -f 6)
   AUTH=$(grep certificate-authority-data "$HOME"/.kube/config |cut -d " " -f 6)
+
   #Create pem files
   mkdir "$CERT_PATH"
   echo "$CLIENT" | base64 -d - > "$CERT_PATH/client.pem"
