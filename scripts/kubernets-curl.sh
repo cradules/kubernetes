@@ -10,7 +10,7 @@
 #The specfields depend on the object being created.
 #############################################################################################################################################
 
-
+set -x
 
 SERVER=$(grep server "$HOME"/.kube/config | awk '{print $2}')
 CERT_PATH="$HOME/kube-cert"
@@ -51,7 +51,8 @@ case $1 in
             curl --cert "$CERT_PATH/client.pem" \
               --key "$CERT_PATH/client-key.pem" \
               --cacert "$CERT_PATH/ca.pem" \
-              "$SERVER""$2" -XPOST -H'Content-Type: application/json'\-d@"$3"
+              "$SERVER""$2" -XPOST -H'Content-Type: application/json'\
+              -d@"$3"
         ;;
       *)
         usage
