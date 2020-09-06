@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-one
+  labels:
+    app: secoundary
+spec:
+  replicas: 2
+  template:
+    metadata:
+      name: nginx-one
+      labels:
+        app: secoundary
+    spec:
+      containers:
+        - name: nginx-one
+          image: nginx
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+              protocol: TCP
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: secoundary

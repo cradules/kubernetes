@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nettool
+  labels:
+    app: nettool
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: nettool
+      labels:
+        app: nettool
+    spec:
+      containers:
+        - name: nettool
+          image: ubuntu:latest
+          command: ["sleep"]
+          args: ["infinity"]
+          imagePullPolicy: IfNotPresent
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: nettool
