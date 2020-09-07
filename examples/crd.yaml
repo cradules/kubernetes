@@ -1,0 +1,21 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: crontabs.training.lfs458.com
+spec:
+  group: training.lfs458.com
+  scope: Cluster
+  versions:
+    - name: "v1"
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          type: Object
+
+  names:
+    plural: crontabs
+    singular: crontab
+    shortNames:
+      - ct
+    kind: CronTab
