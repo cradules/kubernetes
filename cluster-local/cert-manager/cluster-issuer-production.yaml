@@ -1,0 +1,19 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-production
+spec:
+  acme:
+    email: constatin.r@gmail.com
+    server: https://acme-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      name: production-issuer-account-key
+    solvers:
+    - selector:
+        dnsZones:
+        - "steerci.com"
+      dns01:
+        route53:
+          region: "us-east-2"
+          hostedZoneID: "Z05732773E828DEJJPX4P" # optional, see policy above
+#          role: "arn:aws:iam::193993131346:role/eks-staging-us-east-220200324083551581100000005"
